@@ -4,7 +4,7 @@ import { geolocation } from '@vercel/functions';
 export const withGeoip: MiddlewareFactory = (next) => {
   return async (request, event) => {
     const { country } = geolocation(request);
-    console.log('COUNTRY :::::: ', country);
+    request.headers.set('x-country', country ?? 'unknown');
 
     return next(request, event);
   };
